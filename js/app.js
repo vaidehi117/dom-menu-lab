@@ -78,12 +78,42 @@ let showingSubMenu = false;
 
 //5.2 Add click event listener
 topMenuEl.addEventListener('click',function(evt){
-  // evt.preventDefault();
+  evt.preventDefault();
   const link = evt.target;
   if (link.tagName !== 'a')
   return;
   console.log(link.textContent);
-});
 
-//5.3
+  //5.3
+  if (link.classList.contains('active')){
+    link.classList.remove('active');
+    showingSubMenu = false;
+    subMenuEl.style.top = '0';
+    return;
+  }
+
+  //5.4
+  topMenuLinks.forEach(function(link){
+    link.classList.remove('active');
+  });
+
+  //5.5
+  link.classList.add('active');
+
+  //5.6
+  const linkData = menuLinks.find(function(linkObject){
+    return linkObject.text === link.textContent;
+  });
+
+  //5.7
+  showingSubMenu = 'subLinks' in linkData;
+
+  if (showingSubMenu) {
+    buildSubMenu(linkData.subLinks);
+    subMenuEl.style.top = '100%';
+  } else {
+    subMenuEl.style.top = '0';
+    mainEl.innerHTML = '<h1>about</h1>';
+  }
+});
 
