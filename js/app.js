@@ -80,7 +80,7 @@ let showingSubMenu = false;
 topMenuEl.addEventListener('click',function(evt){
   evt.preventDefault();
   const link = evt.target;
-  if (link.tagName !== 'a')
+  if (link.tagName !== 'A') 
   return;
   console.log(link.textContent);
 
@@ -120,7 +120,31 @@ topMenuEl.addEventListener('click',function(evt){
 //5.8
 function buildSubMenu(subLinks) {
   subMenuEl.innerHTML = '';
-  subLinks.forEach(fuction(link) {
-     
+  subLinks.forEach(function(link) {
+    const linkEl = document.createElement('A');
+    linkEl.setAttribute('href', link.href);
+    linkEl.textContent = link.text;
+    subMenuEl.appendChild(linkEl);
   });
 }
+
+//6.0 add event listener for subMenuEl
+subMenuEl.addEventListener('click', function(evt) {
+  evt.preventDefault();
+  const link = evt.target;
+  if (link.tagName !== 'A') 
+  return;
+  console.log(link.textContent);
+
+  //6.1
+  showingSubMenu = false;
+  subMenuEl.style.top = '0';
+
+  //6.2
+  topMenuLinks.forEach(function(lick){
+    link.classList.remove('active');
+  });
+
+  //6.3
+  mainEl.innerHTML = `<h1>${link.textContent}</h1>`;
+});
