@@ -117,3 +117,10 @@ topMenuEl.addEventListener('click',function(evt){
   }
 });
 
+//5.8
+function buildSubMenu(subLinks) {
+  subMenuEl.innerHTML = '';
+  subLinks.forEach(fuction(link) {
+     
+  });
+}
